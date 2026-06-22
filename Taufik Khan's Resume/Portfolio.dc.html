@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body { background: #ffffff; }
+  ::selection { background: rgba(42,111,219,0.18); }
+  @keyframes drift { to { background-position: 240px 0; } }
+  @keyframes livepulse { 0%,100% { opacity: 1; } 50% { opacity: 0.35; } }
+</style>
+</helmet>
+
+<div style="{{ rootStyle }}">
+
+  <!-- ============ NAV ============ -->
+  <nav style="position:sticky;top:0;z-index:60;background:var(--nav, rgba(255,255,255,0.72));backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid var(--border, #e8e8e6);">
+    <div style="max-width:1080px;margin:0 auto;padding:0 24px;height:60px;display:flex;align-items:center;justify-content:space-between;gap:16px;">
+      <button onClick="{{ goHome }}" style="background:none;border:none;padding:0;cursor:pointer;font-family:inherit;font-size:16px;font-weight:500;color:var(--text);letter-spacing:-0.01em;white-space:nowrap;">Taufik Khan</button>
+      <div style="display:flex;align-items:center;gap:clamp(10px,2.4vw,26px);">
+        <button onClick="{{ navWork }}" style="background:none;border:none;padding:0;cursor:pointer;font-family:inherit;font-size:14px;font-weight:400;color:var(--text-2);white-space:nowrap;" style-hover="color:var(--text);">Work</button>
+        <button onClick="{{ navProjects }}" style="background:none;border:none;padding:0;cursor:pointer;font-family:inherit;font-size:14px;font-weight:400;color:var(--text-2);white-space:nowrap;" style-hover="color:var(--text);">Projects</button>
+        <button onClick="{{ navAbout }}" style="background:none;border:none;padding:0;cursor:pointer;font-family:inherit;font-size:14px;font-weight:400;color:var(--text-2);white-space:nowrap;" style-hover="color:var(--text);">About</button>
+        <button onClick="{{ navContact }}" style="background:none;border:none;padding:0;cursor:pointer;font-family:inherit;font-size:14px;font-weight:400;color:var(--text-2);white-space:nowrap;" style-hover="color:var(--text);">Contact</button>
+        <button onClick="{{ toggleTheme }}" aria-label="Toggle theme" style="width:36px;height:36px;flex:none;display:inline-flex;align-items:center;justify-content:center;border-radius:980px;border:1px solid var(--border);background:none;color:var(--text-2);cursor:pointer;" style-hover="background:var(--surface);color:var(--text);">
+          <sc-if value="{{ isDark }}" hint-placeholder-val="{{ false }}">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path></svg>
+          </sc-if>
+          <sc-if value="{{ isLight }}" hint-placeholder-val="{{ true }}">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4.2"></circle><path d="M12 2.5v2.5M12 19v2.5M4.6 4.6l1.8 1.8M17.6 17.6l1.8 1.8M2.5 12H5M19 12h2.5M4.6 19.4l1.8-1.8M17.6 6.4l1.8-1.8"></path></svg>
+          </sc-if>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ============ LANDING ============ -->
+  <sc-if value="{{ isLanding }}" hint-placeholder-val="{{ true }}">
+  <main data-screen-label="Landing">
+
+    <!-- HERO -->
+    <section style="max-width:1080px;margin:0 auto;padding:0 24px;">
+      <div style="max-width:760px;padding:var(--sec-lg) 0 var(--sec);">
+        <div style="font-size:13px;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent);margin-bottom:24px;">Backend &amp; platform engineer</div>
+        <h1 style="margin:0;font-weight:500;font-size:clamp(2.4rem,5.6vw,4rem);line-height:1.07;letter-spacing:-0.03em;color:var(--text);text-wrap:balance;">I build systems that stay calm when thousands of people hit them at once.</h1>
+        <p style="margin:28px 0 0;font-size:clamp(1.05rem,2vw,1.2rem);line-height:1.6;color:var(--text-2);max-width:620px;font-weight:400;">I work on government digital services, high-concurrency WhatsApp pipelines, fine-tuned Odia speech AI, and a self-hosted Kubernetes platform — from the queues up.</p>
+        <div style="display:flex;flex-wrap:wrap;align-items:center;gap:14px;margin-top:40px;">
+          <button onClick="{{ navWork }}" style="display:inline-flex;align-items:center;gap:8px;border:none;border-radius:var(--rad-btn);background:var(--accent);color:var(--accent-text);font-family:inherit;font-size:15px;font-weight:500;padding:13px 22px;cursor:pointer;" style-hover="filter:brightness(1.08);">View projects
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+          </button>
+          <div style="display:flex;align-items:center;gap:4px;">
+            <a href="https://github.com/Taufik041" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:7px;text-decoration:none;border-radius:var(--rad-btn);color:var(--text-2);font-size:15px;font-weight:400;padding:13px 14px;" style-hover="color:var(--text);background:var(--surface);">GitHub</a>
+            <a href="https://www.linkedin.com/in/taufik-khan/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:7px;text-decoration:none;border-radius:var(--rad-btn);color:var(--text-2);font-size:15px;font-weight:400;padding:13px 14px;" style-hover="color:var(--text);background:var(--surface);">LinkedIn</a>
+            <a href="https://drive.google.com/file/d/1AV3bYhLbpzHqjF-DZwY79ZdyMWraBuw1/view?usp=sharing" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:7px;text-decoration:none;border-radius:var(--rad-btn);color:var(--text-2);font-size:15px;font-weight:400;padding:13px 14px;" style-hover="color:var(--text);background:var(--surface);">Résumé</a>
+          </div>
+        </div>
+      </div>
+      <div style="height:1px;background:var(--border);"></div>
+    </section>
+
+    <!-- SELECTED WORK -->
+    <section id="work-section" style="max-width:1080px;margin:0 auto;padding:var(--sec) 24px;">
+      <div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:40px;flex-wrap:wrap;">
+        <div>
+          <div style="font-size:12.5px;font-weight:500;letter-spacing:0.09em;text-transform:uppercase;color:var(--text-3);margin-bottom:12px;">Selected work</div>
+          <h2 style="margin:0;font-weight:500;font-size:clamp(1.6rem,3.4vw,2rem);line-height:1.15;letter-spacing:-0.02em;color:var(--text);">Three systems I'm proud of.</h2>
+        </div>
+        <button onClick="{{ navWork }}" style="background:none;border:none;padding:0;cursor:pointer;font-family:inherit;font-size:14px;font-weight:500;color:var(--accent);display:inline-flex;align-items:center;gap:6px;white-space:nowrap;" style-hover="gap:9px;">Watch the reel
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+        </button>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:20px;">
+
+        <!-- card 0 -->
+        <button onClick="{{ openCard0 }}" style="text-align:left;font-family:inherit;cursor:pointer;border:1px solid var(--border);border-radius:var(--rad-card);background:var(--bg);padding:26px;display:flex;flex-direction:column;gap:18px;transition:border-color .25s ease, transform .25s ease, background .25s ease;" style-hover="border-color:var(--border-strong);transform:translateY(-3px);background:var(--surface);">
+          <div style="display:flex;align-items:flex-start;justify-content:space-between;">
+            <div style="width:44px;height:44px;border-radius:var(--rad-btn);display:flex;align-items:center;justify-content:center;background:var(--accent-weak);color:var(--accent);">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="9" width="2.2" height="6" rx="1.1"></rect><rect x="7.5" y="6" width="2.2" height="12" rx="1.1"></rect><rect x="12" y="3" width="2.2" height="18" rx="1.1"></rect><rect x="16.5" y="7" width="2.2" height="10" rx="1.1"></rect><rect x="21" y="10" width="2.2" height="4" rx="1.1"></rect></svg>
+            </div>
+            <span style="display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:400;color:var(--text-3);">
+              <span style="width:24px;height:24px;border-radius:980px;border:1px solid var(--border);display:inline-flex;align-items:center;justify-content:center;color:var(--text-2);"><svg width="9" height="9" viewBox="0 0 10 12" fill="currentColor"><path d="M0 0l10 6-10 6z"></path></svg></span>
+              demo
+            </span>
+          </div>
+          <div>
+            <h3 style="margin:0 0 8px;font-size:1.2rem;font-weight:500;letter-spacing:-0.01em;color:var(--text);">langgenie.ai — distributed speech AI</h3>
+            <p style="margin:0;font-size:15px;line-height:1.55;color:var(--text-2);">Fault-tolerant, message-driven backend serving fine-tuned Odia speech models.</p>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;">
+            <span style="display:inline-flex;padding:5px 11px;border-radius:var(--rad-pill);border:1px solid var(--border);background:var(--surface);color:var(--text-2);font-size:12.5px;font-weight:500;">FastAPI</span>
+            <span style="display:inline-flex;padding:5px 11px;border-radius:var(--rad-pill);border:1px solid var(--border);background:var(--surface);color:var(--text-2);font-size:12.5px;font-weight:500;">RabbitMQ</span>
+            <span style="display:inline-flex;padding:5px 11px;border-radius:var(--rad-pill);border:1px solid var(--border);background:var(--surface);color:var(--text-2);font-size:12.5px;font-weight:500;">Whisper</span>
+          </div>
+        </button>
+
+        <!-- card 1 -->
+        <button onClick="{{ openCard1 }}" style="text-align:left;font-family:inherit;cursor:pointer;border:1px solid var(--border);border-radius:var(--rad-card);background:var(--bg);padding:26px;display:flex;flex-direction:column;gap:18px;transition:border-color .25s ease, transform .25s ease, background .25s ease;" style-hover="border-color:var(--border-strong);transform:translateY(-3px);background:var(--surface);">
+          <div style="display:flex;align-items:flex-start;justify-content:space-between;">
+            <div style="width:44px;height:44px;border-radius:var(--rad-btn);display:flex;align-items:center;justify-content:center;background:var(--accent-weak);color:var(--accent);">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="4" width="18" height="13" rx="4"></rect><path d="M8 16.5 L8 21 L13.2 16.5 Z"></path></svg>
+            </div>
+            <span style="display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:400;color:var(--text-3);">
+              <span style="width:24px;height:24px;border-radius:980px;border:1px solid var(--border);display:inline-flex;align-items:center;justify-content:center;color:var(--text-2);"><svg width="9" height="9" viewBox="0 0 10 12" fill="currentColor"><path d="M0 0l10 6-10 6z"></path></svg></span>
+              demo
+            </span>
+          </div>
+          <div>
+            <h3 style="margin:0 0 8px;font-size:1.2rem;font-weight:500;letter-spacing:-0.01em;color:var(--text);">WhatsApp government services</h3>
+            <p style="margin:0;font-size:15px;line-height:1.55;color:var(--text-2);">High-concurrency backend filing 1,000+ citizen requests a day with zero data loss.</p>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;">
+            <span style="display:inline-flex;padding:5px 11px;border-radius:var(--rad-pill);border:1px solid var(--border);background:var(--surface);color:var(--text-2);font-size:12.5px;font-weight:500;">FastAPI</span>
+            <span style="display:inline-flex;padding:5px 11px;border-radius:var(--rad-pill);border:1px solid var(--border);background:var(--surface);color:var(--text-2);font-size:12.5px;font-weight:500;">WhatsApp Cloud API</span>
+            <span style="display:inline-flex;padding:5px 11px;border-radius:var(--rad-pill);border:1px solid var(--border);background:var(--surface);color:var(--text-2);font-size:12.5px;font-weight:500;">RAG</span>
+          </div>
+        </button>
+
+        <!-- card 2 -->
+        <button onClick="{{ openCard2 }}" style="text-align:left;font-family:inherit;cursor:pointer;border:1px solid var(--border);border-radius:var(--rad-card);background:var(--bg);padding:26px;display:flex;flex-direction:column;gap:18px;transition:border-color .25s ease, transform .25s ease, background .25s ease;" style-hover="border-color:var(--border-strong);transform:translateY(-3px);background:var(--surface);">
+          <div style="display:flex;align-items:flex-start;justify-content:space-between;">
+            <div style="width:44px;height:44px;border-radius:var(--rad-btn);display:flex;align-items:center;justify-content:center;background:var(--accent-weak);color:var(--accent);">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><rect x="4" y="4" width="16" height="3.6" rx="1.4"></rect><rect x="4" y="10.2" width="16" height="3.6" rx="1.4" opacity="0.66"></rect><rect x="4" y="16.4" width="16" height="3.6" rx="1.4" opacity="0.4"></rect></svg>
+            </div>
+            <span style="display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:400;color:var(--text-3);">
+              <span style="width:24px;height:24px;border-radius:980px;border:1px solid var(--border);display:inline-flex;align-items:center;justify-content:center;color:var(--text-2);"><svg width="9" height="9" viewBox="0 0 10 12" fill="currentColor"><path d="M0 0l10 6-10 6z"></path></svg></span>
+              demo
+            </span>
+          </div>
+          <div>
+            <h3 style="margin:0 0 8px;font-size:1.2rem;font-weight:500;letter-spacing:-0.01em;color:var(--text);">Mini-Vercel — self-hosted Kubernetes PaaS</h3>
+            <p style="margin:0;font-size:15px;line-height:1.55;color:var(--text-2);">Builds and deploys apps in-cluster with scale-to-zero, cutting idle compute to near zero.</p>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;">
+            <span style="display:inline-flex;padding:5px 11px;border-radius:var(--rad-pill);border:1px solid var(--border);background:var(--surface);color:var(--text-2);font-size:12.5px;font-weight:500;">Kubernetes</span>
+            <span style="display:inline-flex;padding:5px 11px;border-radius:var(--rad-pill);border:1px solid var(--border);background:var(--surface);color:var(--text-2);font-size:12.5px;font-weight:500;">KEDA</span>
+            <span style="display:inline-flex;padding:5px 11px;border-radius:var(--rad-pill);border:1px solid var(--border);background:var(--surface);color:var(--text-2);font-size:12.5px;font-weight:500;">Terraform</span>
+          </div>
+        </button>
+
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section style="max-width:1080px;margin:0 auto;padding:0 24px;">
+      <div style="height:1px;background:var(--border);"></div>
+      <div style="padding:var(--sec) 0;">
+        <div style="font-size:12.5px;font-weight:500;letter-spacing:0.09em;text-transform:uppercase;color:var(--text-3);margin-bottom:36px;">Experience</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:28px 56px;align-items:start;">
+          <div>
+            <h3 style="margin:0;font-size:1.3rem;font-weight:500;letter-spacing:-0.01em;color:var(--text);">Bipros</h3>
+            <p style="margin:6px 0 0;font-size:14px;color:var(--text-3);">Bhubaneswar, Odisha</p>
+            <p style="margin:18px 0 0;font-size:15px;color:var(--text);font-weight:500;">Software Engineer</p>
+            <p style="margin:4px 0 0;font-size:14px;color:var(--text-2);">Dec 2025 – Present · Trainee May–Dec 2025</p>
+          </div>
+          <div style="grid-column:span 2;min-width:0;">
+            <ul style="margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:16px;">
+              <li style="display:flex;gap:14px;font-size:15.5px;line-height:1.6;color:var(--text-2);"><span style="flex:none;margin-top:9px;width:5px;height:5px;border-radius:50%;background:var(--accent);"></span><span>Built <span style="color:var(--text);">langgenie.ai</span>, a fault-tolerant, message-driven backend on RabbitMQ, PostgreSQL and FastAPI with streaming results and full job-lifecycle management for a distributed speech-AI platform.</span></li>
+              <li style="display:flex;gap:14px;font-size:15.5px;line-height:1.6;color:var(--text-2);"><span style="flex:none;margin-top:9px;width:5px;height:5px;border-radius:50%;background:var(--accent);"></span>Engineered a high-concurrency backend processing 23+ live government services — 1,000+ requests daily with zero data loss — and cut citizen processing time ~60% by replacing legacy portals with WhatsApp Flows across 150+ services.</li>
+              <li style="display:flex;gap:14px;font-size:15.5px;line-height:1.6;color:var(--text-2);"><span style="flex:none;margin-top:9px;width:5px;height:5px;border-radius:50%;background:var(--accent);"></span>Fine-tuned OpenAI Whisper for Odia detection, transcription and translation at ~90% accuracy, served through priority queues across auto-scaling GPU workers.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div style="height:1px;background:var(--border);"></div>
+    </section>
+
+    <!-- ABOUT -->
+    <section id="about-section" style="max-width:1080px;margin:0 auto;padding:0 24px;">
+      <div style="padding:var(--sec) 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:28px 56px;align-items:start;">
+        <div style="font-size:12.5px;font-weight:500;letter-spacing:0.09em;text-transform:uppercase;color:var(--text-3);">About</div>
+        <div style="grid-column:span 2;min-width:0;">
+          <p style="margin:0;font-size:clamp(1.15rem,2.2vw,1.4rem);line-height:1.55;letter-spacing:-0.01em;color:var(--text);font-weight:400;text-wrap:pretty;">I'm a backend and platform engineer in Bhubaneswar, building the systems behind public digital services — speech AI, high-concurrency WhatsApp pipelines, and the infrastructure that runs them.</p>
+          <p style="margin:24px 0 0;font-size:1.05rem;line-height:1.65;color:var(--text-2);text-wrap:pretty;">I care about software that stays quiet under load: fault-tolerant queues, clean job lifecycles, and platforms that scale to zero when no one's looking. Lately I've been fine-tuning speech models for Odia and running a self-hosted Kubernetes PaaS for the fun of it.</p>
+        </div>
+      </div>
+      <div style="height:1px;background:var(--border);"></div>
+    </section>
+
+    <!-- STACK -->
+    <section style="max-width:1080px;margin:0 auto;padding:0 24px;">
+      <div style="padding:var(--sec) 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:28px 56px;align-items:start;">
+        <div style="font-size:12.5px;font-weight:500;letter-spacing:0.09em;text-transform:uppercase;color:var(--text-3);">Stack</div>
+        <div style="grid-column:span 2;min-width:0;display:flex;flex-wrap:wrap;gap:10px;">
+          <sc-for list="{{ stack }}" as="s" hint-placeholder-count="16">
+            <span style="display:inline-flex;padding:7px 13px;border-radius:var(--rad-pill);border:1px solid var(--border);background:var(--surface);color:var(--text);font-size:13.5px;font-weight:400;">{{ s }}</span>
+          </sc-for>
+        </div>
+      </div>
+      <div style="height:1px;background:var(--border);"></div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact-section" style="max-width:1080px;margin:0 auto;padding:0 24px;">
+      <div style="padding:var(--sec-lg) 0;text-align:center;">
+        <h2 style="margin:0 auto;font-weight:500;font-size:clamp(1.9rem,4.4vw,2.8rem);line-height:1.1;letter-spacing:-0.025em;color:var(--text);max-width:600px;text-wrap:balance;">Building something that needs to stay up? Let's talk.</h2>
+        <div style="display:flex;flex-wrap:wrap;justify-content:center;gap:14px;margin-top:36px;">
+          <a href="https://www.linkedin.com/in/taufik-khan/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;text-decoration:none;border:none;border-radius:var(--rad-btn);background:var(--accent);color:var(--accent-text);font-size:15px;font-weight:500;padding:13px 22px;" style-hover="filter:brightness(1.08);">Get in touch</a>
+          <a href="https://github.com/Taufik041" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;text-decoration:none;border:1px solid var(--border);border-radius:var(--rad-btn);color:var(--text);font-size:15px;font-weight:400;padding:13px 20px;" style-hover="border-color:var(--border-strong);background:var(--surface);">GitHub</a>
+          <a href="https://drive.google.com/file/d/1AV3bYhLbpzHqjF-DZwY79ZdyMWraBuw1/view?usp=sharing" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;text-decoration:none;border:1px solid var(--border);border-radius:var(--rad-btn);color:var(--text);font-size:15px;font-weight:400;padding:13px 20px;" style-hover="border-color:var(--border-strong);background:var(--surface);">Résumé</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer style="border-top:1px solid var(--border);">
+      <div style="max-width:1080px;margin:0 auto;padding:32px 24px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;">
+        <span style="font-size:13.5px;color:var(--text-3);">© 2026 Taufik Khan</span>
+        <div style="display:flex;gap:20px;">
+          <a href="https://github.com/Taufik041" target="_blank" rel="noopener" style="font-size:13.5px;color:var(--text-2);text-decoration:none;" style-hover="color:var(--text);">GitHub</a>
+          <a href="https://www.linkedin.com/in/taufik-khan/" target="_blank" rel="noopener" style="font-size:13.5px;color:var(--text-2);text-decoration:none;" style-hover="color:var(--text);">LinkedIn</a>
+          <a href="https://drive.google.com/file/d/1AV3bYhLbpzHqjF-DZwY79ZdyMWraBuw1/view?usp=sharing" target="_blank" rel="noopener" style="font-size:13.5px;color:var(--text-2);text-decoration:none;" style-hover="color:var(--text);">Résumé</a>
+        </div>
+      </div>
+    </footer>
+
+  </main>
+  </sc-if>
+
+  <!-- ============ WORK / CAROUSEL ============ -->
+  <sc-if value="{{ isWork }}" hint-placeholder-val="{{ false }}">
+  <main data-screen-label="Work" style="max-width:1000px;margin:0 auto;padding:clamp(32px,6vw,64px) 24px clamp(64px,9vw,104px);">
+    <div style="display:flex;align-items:baseline;justify-content:space-between;gap:16px;margin-bottom:24px;flex-wrap:wrap;">
+      <div>
+        <div style="font-size:12.5px;font-weight:500;letter-spacing:0.09em;text-transform:uppercase;color:var(--text-3);margin-bottom:10px;">The reel</div>
+        <h1 style="margin:0;font-weight:500;font-size:clamp(1.7rem,3.6vw,2.2rem);line-height:1.12;letter-spacing:-0.02em;color:var(--text);">Work, playing itself.</h1>
+      </div>
+      <span style="font-size:14px;color:var(--text-3);">{{ counterLabel }}</span>
+    </div>
+
+    <!-- FRAME -->
+    <div style="position:relative;aspect-ratio:16/9;width:100%;border-radius:var(--rad-card);border:1px solid var(--border);overflow:hidden;background:var(--surface);">
+
+      <!-- media: video -->
+      <sc-if value="{{ cur.isVideo }}" hint-placeholder-val="{{ true }}">
+        <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(135deg,var(--stripe1) 0 13px,var(--stripe2) 13px 26px);background-size:240px 240px;animation:drift 9s linear infinite;display:flex;align-items:center;justify-content:center;">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:14px;color:var(--text-3);">
+            <div style="width:64px;height:64px;border-radius:980px;background:var(--bg);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--accent);"><svg width="22" height="22" viewBox="0 0 12 14" fill="currentColor"><path d="M0 0l12 7-12 7z"></path></svg></div>
+            <span style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;letter-spacing:0.04em;">demo reel · video.mp4</span>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- media: image -->
+      <sc-if value="{{ cur.isImage }}" hint-placeholder-val="{{ false }}">
+        <div style="position:absolute;inset:0;background-image:repeating-linear-gradient(135deg,var(--stripe1) 0 13px,var(--stripe2) 13px 26px);display:flex;align-items:center;justify-content:center;">
+          <span style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;letter-spacing:0.04em;color:var(--text-3);">architecture diagram · still image</span>
+        </div>
+      </sc-if>
+
+      <!-- media: gallery -->
+      <sc-if value="{{ cur.isGallery }}" hint-placeholder-val="{{ false }}">
+        <div style="position:absolute;inset:0;padding:18px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px;">
+          <sc-for list="{{ cur.gallery }}" as="g" hint-placeholder-count="3">
+            <div style="border-radius:var(--rad-btn);background-image:repeating-linear-gradient(135deg,var(--stripe1) 0 11px,var(--stripe2) 11px 22px);display:flex;align-items:flex-end;padding:12px;">
+              <span style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;color:var(--text-3);">{{ g }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+
+      <!-- media: none -->
+      <sc-if value="{{ cur.isNone }}" hint-placeholder-val="{{ false }}">
+        <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:var(--surface);">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center;padding:24px;">
+            <div style="width:52px;height:52px;border-radius:var(--rad-btn);border:1px dashed var(--border-strong);display:flex;align-items:center;justify-content:center;color:var(--text-3);"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg></div>
+            <div style="font-size:15px;color:var(--text);font-weight:500;">Walkthrough coming soon</div>
+            <div style="font-size:13px;color:var(--text-3);max-width:260px;line-height:1.5;">A recorded demo for this project is on the way. The code is live in the meantime.</div>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- label overlay -->
+      <div style="position:absolute;top:16px;left:16px;display:inline-flex;align-items:center;gap:9px;padding:7px 13px;border-radius:980px;background:rgba(20,20,22,0.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:#fff;font-size:13px;font-weight:500;max-width:calc(100% - 120px);">
+        <span style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;opacity:0.7;">{{ cur.num }}</span>
+        <span style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{ cur.title }}</span>
+      </div>
+
+      <!-- play state indicator -->
+      <button onClick="{{ cPlayToggle }}" style="position:absolute;top:16px;right:16px;display:inline-flex;align-items:center;gap:8px;padding:7px 13px;border-radius:980px;border:none;cursor:pointer;font-family:inherit;background:rgba(20,20,22,0.55);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:#fff;font-size:12.5px;font-weight:500;">
+        <sc-if value="{{ cPlaying }}" hint-placeholder-val="{{ true }}">
+          <span style="width:7px;height:7px;border-radius:50%;background:#4ade80;animation:livepulse 1.6s ease-in-out infinite;"></span>Playing
+        </sc-if>
+        <sc-if value="{{ cPaused }}" hint-placeholder-val="{{ false }}">
+          <span style="width:7px;height:7px;border-radius:50%;background:#fbbf24;"></span>Paused
+        </sc-if>
+      </button>
+
+      <!-- arrows -->
+      <button onClick="{{ cPrev }}" aria-label="Previous" style="position:absolute;left:14px;top:50%;transform:translateY(-50%);width:42px;height:42px;border-radius:980px;border:none;cursor:pointer;background:rgba(20,20,22,0.45);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:#fff;display:flex;align-items:center;justify-content:center;" style-hover="background:rgba(20,20,22,0.72);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"></path></svg></button>
+      <button onClick="{{ cNext }}" aria-label="Next" style="position:absolute;right:14px;top:50%;transform:translateY(-50%);width:42px;height:42px;border-radius:980px;border:none;cursor:pointer;background:rgba(20,20,22,0.45);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);color:#fff;display:flex;align-items:center;justify-content:center;" style-hover="background:rgba(20,20,22,0.72);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"></path></svg></button>
+
+      <!-- progress bar -->
+      <div style="position:absolute;left:0;right:0;bottom:0;height:3px;background:rgba(128,128,128,0.25);">
+        <div style="height:100%;background:var(--accent);width:{{ progressW }};transition:width .12s linear;"></div>
+      </div>
+    </div>
+
+    <!-- dots -->
+    <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-top:20px;">
+      <sc-for list="{{ dots }}" as="dot" hint-placeholder-count="4">
+        <button onClick="{{ dot.onClick }}" aria-label="Go to slide" style="{{ dot.style }}"></button>
+      </sc-for>
+    </div>
+
+    <!-- synced details -->
+    <div style="margin-top:36px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:28px 48px;align-items:start;">
+      <div style="min-width:0;">
+        <h2 style="margin:0;font-weight:500;font-size:clamp(1.4rem,3vw,1.8rem);line-height:1.15;letter-spacing:-0.02em;color:var(--text);">{{ cur.title }}</h2>
+        <p style="margin:16px 0 0;font-size:1.02rem;line-height:1.65;color:var(--text-2);text-wrap:pretty;">{{ cur.desc }}</p>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:20px;">
+          <sc-for list="{{ cur.tags }}" as="tag" hint-placeholder-count="5">
+            <span style="display:inline-flex;padding:5px 11px;border-radius:var(--rad-pill);border:1px solid var(--border);background:var(--surface);color:var(--text-2);font-size:12.5px;font-weight:500;">{{ tag }}</span>
+          </sc-for>
+        </div>
+      </div>
+      <div style="min-width:0;display:flex;flex-direction:column;gap:10px;">
+        <sc-for list="{{ cur.links }}" as="link" hint-placeholder-count="2">
+          <a href="{{ link.href }}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;justify-content:space-between;gap:10px;text-decoration:none;border:1px solid var(--border);border-radius:var(--rad-btn);padding:14px 16px;color:var(--text);font-size:14.5px;font-weight:400;" style-hover="border-color:var(--border-strong);background:var(--surface);">{{ link.label }}<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"></path></svg></a>
+        </sc-for>
+        <button onClick="{{ openCurrent }}" style="display:inline-flex;align-items:center;justify-content:space-between;gap:10px;font-family:inherit;cursor:pointer;border:1px solid var(--border);border-radius:var(--rad-btn);padding:14px 16px;background:none;color:var(--accent);font-size:14.5px;font-weight:500;" style-hover="border-color:var(--border-strong);background:var(--surface);">Open project page<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
+      </div>
+    </div>
+  </main>
+  </sc-if>
+
+  <!-- ============ PROJECT PAGE ============ -->
+  <sc-if value="{{ isProject }}" hint-placeholder-val="{{ false }}">
+  <main data-screen-label="Project" style="max-width:920px;margin:0 auto;padding:clamp(28px,5vw,52px) 24px clamp(64px,9vw,104px);">
+    <button onClick="{{ navWork }}" style="display:inline-flex;align-items:center;gap:7px;background:none;border:none;padding:0;cursor:pointer;font-family:inherit;font-size:14px;font-weight:400;color:var(--text-2);margin-bottom:36px;" style-hover="color:var(--text);"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"></path></svg>Back to the reel</button>
+
+    <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;">
+      <div style="width:48px;height:48px;flex:none;border-radius:var(--rad-btn);display:flex;align-items:center;justify-content:center;background:var(--accent-weak);color:var(--accent);">
+        <sc-if value="{{ proj.isWave }}" hint-placeholder-val="{{ true }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="9" width="2.2" height="6" rx="1.1"></rect><rect x="7.5" y="6" width="2.2" height="12" rx="1.1"></rect><rect x="12" y="3" width="2.2" height="18" rx="1.1"></rect><rect x="16.5" y="7" width="2.2" height="10" rx="1.1"></rect><rect x="21" y="10" width="2.2" height="4" rx="1.1"></rect></svg></sc-if>
+        <sc-if value="{{ proj.isBubble }}" hint-placeholder-val="{{ false }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="4" width="18" height="13" rx="4"></rect><path d="M8 16.5 L8 21 L13.2 16.5 Z"></path></svg></sc-if>
+        <sc-if value="{{ proj.isLayers }}" hint-placeholder-val="{{ false }}"><svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><rect x="4" y="4" width="16" height="3.6" rx="1.4"></rect><rect x="4" y="10.2" width="16" height="3.6" rx="1.4" opacity="0.66"></rect><rect x="4" y="16.4" width="16" height="3.6" rx="1.4" opacity="0.4"></rect></svg></sc-if>
+        <sc-if value="{{ proj.isCode }}" hint-placeholder-val="{{ false }}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 7l-5 5 5 5M15 7l5 5-5 5"></path></svg></sc-if>
+      </div>
+      <span style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:13px;color:var(--text-3);">{{ proj.num }}</span>
+    </div>
+
+    <h1 style="margin:0;font-weight:500;font-size:clamp(1.9rem,4.4vw,2.7rem);line-height:1.1;letter-spacing:-0.025em;color:var(--text);text-wrap:balance;">{{ proj.title }}</h1>
+    <p style="margin:18px 0 0;font-size:clamp(1.05rem,2vw,1.2rem);line-height:1.6;color:var(--text-2);max-width:640px;text-wrap:pretty;">{{ proj.desc }}</p>
+
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin:24px 0 0;">
+      <sc-for list="{{ proj.tags }}" as="tag" hint-placeholder-count="5">
+        <span style="display:inline-flex;padding:5px 11px;border-radius:var(--rad-pill);border:1px solid var(--border);background:var(--surface);color:var(--text-2);font-size:12.5px;font-weight:500;">{{ tag }}</span>
+      </sc-for>
+    </div>
+
+    <div style="display:flex;flex-wrap:wrap;gap:12px;margin:28px 0 40px;">
+      <sc-for list="{{ proj.links }}" as="link" hint-placeholder-count="2">
+        <a href="{{ link.href }}" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;text-decoration:none;border:1px solid var(--border);border-radius:var(--rad-btn);padding:11px 18px;color:var(--text);font-size:14.5px;font-weight:400;" style-hover="border-color:var(--border-strong);background:var(--surface);">{{ link.label }}<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M9 7h8v8"></path></svg></a>
+      </sc-for>
+    </div>
+
+    <!-- project media gallery -->
+    <div style="font-size:12.5px;font-weight:500;letter-spacing:0.09em;text-transform:uppercase;color:var(--text-3);margin-bottom:16px;">Walkthrough</div>
+
+    <sc-if value="{{ proj.isVideo }}" hint-placeholder-val="{{ true }}">
+      <div style="position:relative;aspect-ratio:16/9;width:100%;border-radius:var(--rad-card);border:1px solid var(--border);overflow:hidden;background-image:repeating-linear-gradient(135deg,var(--stripe1) 0 13px,var(--stripe2) 13px 26px);display:flex;align-items:center;justify-content:center;">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:14px;color:var(--text-3);">
+          <div style="width:60px;height:60px;border-radius:980px;background:var(--bg);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--accent);"><svg width="20" height="20" viewBox="0 0 12 14" fill="currentColor"><path d="M0 0l12 7-12 7z"></path></svg></div>
+          <span style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;">demo reel · video.mp4</span>
+        </div>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ proj.isImage }}" hint-placeholder-val="{{ false }}">
+      <div style="aspect-ratio:16/9;width:100%;border-radius:var(--rad-card);border:1px solid var(--border);overflow:hidden;background-image:repeating-linear-gradient(135deg,var(--stripe1) 0 13px,var(--stripe2) 13px 26px);display:flex;align-items:center;justify-content:center;">
+        <span style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;color:var(--text-3);">architecture diagram · still image</span>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ proj.isGallery }}" hint-placeholder-val="{{ false }}">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:14px;">
+        <sc-for list="{{ proj.gallery }}" as="g" hint-placeholder-count="3">
+          <div style="aspect-ratio:3/4;border-radius:var(--rad-btn);border:1px solid var(--border);overflow:hidden;background-image:repeating-linear-gradient(135deg,var(--stripe1) 0 11px,var(--stripe2) 11px 22px);display:flex;align-items:flex-end;padding:14px;"><span style="font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:11px;color:var(--text-3);">{{ g }}</span></div>
+        </sc-for>
+      </div>
+    </sc-if>
+
+    <sc-if value="{{ proj.isNone }}" hint-placeholder-val="{{ false }}">
+      <div style="aspect-ratio:16/9;width:100%;border-radius:var(--rad-card);border:1px dashed var(--border-strong);display:flex;align-items:center;justify-content:center;background:var(--surface);">
+        <div style="display:flex;flex-direction:column;align-items:center;gap:14px;text-align:center;padding:24px;">
+          <div style="width:52px;height:52px;border-radius:var(--rad-btn);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:var(--text-3);background:var(--bg);"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg></div>
+          <div style="font-size:15px;color:var(--text);font-weight:500;">Walkthrough coming soon</div>
+          <div style="font-size:13px;color:var(--text-3);max-width:300px;line-height:1.5;">A recorded demo for this project is on the way. The code and write-up are linked above.</div>
+        </div>
+      </div>
+    </sc-if>
+
+    <!-- next project -->
+    <div style="margin-top:48px;padding-top:28px;border-top:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;gap:16px;">
+      <span style="font-size:13.5px;color:var(--text-3);">Next project</span>
+      <button onClick="{{ nextProject }}" style="display:inline-flex;align-items:center;gap:9px;background:none;border:none;padding:0;cursor:pointer;font-family:inherit;font-size:15px;font-weight:500;color:var(--text);text-align:right;" style-hover="color:var(--accent);">{{ nextTitle }}<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
+    </div>
+  </main>
+  </sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:900},&quot;accent&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Cobalt&quot;,&quot;Forest&quot;,&quot;Terracotta&quot;,&quot;Violet&quot;,&quot;Graphite&quot;],&quot;default&quot;:&quot;Cobalt&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;corners&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Soft&quot;,&quot;Crisp&quot;],&quot;default&quot;:&quot;Soft&quot;,&quot;tsType&quot;:&quot;string&quot;},&quot;density&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Spacious&quot;,&quot;Compact&quot;],&quot;default&quot;:&quot;Spacious&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+class Component extends DCLogic {
+  state = { theme: 'light', view: 'landing', proj: 0, cIndex: 0, cProgress: 0, cPlaying: true };
+
+  DURATION = 7000;
+  TICK = 60;
+
+  LIGHT = { bg:'#ffffff', surface:'#f7f7f6', 'surface-2':'#eeeeec', text:'#18181a', 'text-2':'#5b5b60', 'text-3':'#8a8a90', border:'#e8e8e6', 'border-strong':'#d6d6d3', accent:'#2a6fdb', 'accent-weak':'rgba(42,111,219,0.09)', 'accent-text':'#ffffff', stripe1:'#f2f2f0', stripe2:'#e9e9e6', nav:'rgba(255,255,255,0.72)' };
+  DARK = { bg:'#0b0b0c', surface:'#141416', 'surface-2':'#1c1c20', text:'#f3f3f4', 'text-2':'#a6a6ad', 'text-3':'#6f6f77', border:'#262629', 'border-strong':'#3a3a40', accent:'#5b93f2', 'accent-weak':'rgba(91,147,242,0.15)', 'accent-text':'#0b0b0c', stripe1:'#161618', stripe2:'#1f1f24', nav:'rgba(11,11,12,0.7)' };
+
+  PROJECTS = [
+    { num:'01', icon:'wave', title:'langgenie.ai — distributed speech AI',
+      desc:'A distributed speech-AI platform with streaming results and full job-lifecycle management. Fine-tuned OpenAI Whisper for Odia detection, transcription and translation at ~90% accuracy, served through priority queues across auto-scaling GPU workers — built on RabbitMQ, PostgreSQL and FastAPI.',
+      tags:['FastAPI','RabbitMQ','PostgreSQL','Whisper','Redis'], media:'video',
+      links:[{label:'Visit langgenie.ai',href:'https://langgenie.ai'},{label:'GitHub',href:'https://github.com/Taufik041'}] },
+    { num:'02', icon:'bubble', title:'WhatsApp government services',
+      desc:'A high-concurrency FastAPI + RabbitMQ backend powering 23+ live government services — 1,000+ requests a day with zero data loss. Replaced legacy web portals with WhatsApp Flows for mobile-first filing across 150+ services, cutting processing time ~60%. A RAG agent turns PDF/image specs into production bilingual Flow JSON.',
+      tags:['FastAPI','RabbitMQ','WhatsApp Cloud API','RAG','PostgreSQL'], media:'gallery',
+      gallery:['flow: identify','flow: verify','flow: submit'],
+      links:[{label:'GitHub',href:'https://github.com/Taufik041'}] },
+    { num:'03', icon:'layers', title:'Mini-Vercel — self-hosted Kubernetes PaaS',
+      desc:'A self-hosted PaaS that builds and deploys user apps in-cluster with Kaniko and a KEDA HTTP add-on for scale-to-zero, cutting idle compute to near zero. Multi-tenant isolation via per-namespace quotas, automated subdomain routing through Nginx Ingress, and real-time build-log streaming over Redis pub/sub + SSE on a RabbitMQ build queue.',
+      tags:['Kubernetes','KEDA','Kaniko','Terraform','AWS'], media:'image',
+      links:[{label:'GitHub',href:'https://github.com/Taufik041'}] },
+    { num:'04', icon:'code', title:'Robyn — OpenAPI engine fix',
+      desc:'Open-source contribution to Robyn, a high-performance Python web framework. Fixed a critical bug in the OpenAPI generation engine (issue #1270), added unit tests, and merged the fix (PR #1272) after CI checks and maintainer review.',
+      tags:['Python','Open source','OpenAPI'], media:'none',
+      links:[{label:'PR #1272',href:'https://github.com/sparckles/Robyn/pull/1272'}] }
+  ];
+
+  STACK = ['Python','FastAPI','RabbitMQ','Redis','PostgreSQL','WebSockets','Docker','Kubernetes','KEDA','Helm','OpenShift','AWS (EKS · EC2 · S3)','Terraform','Argo CD','GitHub Actions','Ansible','LangChain','LangGraph','OpenAI Whisper','WhatsApp Cloud API'];
+
+  componentDidMount() {
+    this._timer = setInterval(() => {
+      const s = this.state;
+      if (s.view !== 'work' || !s.cPlaying) return;
+      const step = (this.TICK / this.DURATION) * 100;
+      const p = s.cProgress + step;
+      if (p >= 100) this.setState({ cProgress: 0, cIndex: (s.cIndex + 1) % this.PROJECTS.length });
+      else this.setState({ cProgress: p });
+    }, this.TICK);
+  }
+  componentWillUnmount() { clearInterval(this._timer); }
+
+  _top() { try { window.scrollTo({ top: 0, behavior: 'auto' }); } catch (e) {} }
+
+  toggleTheme = () => this.setState(s => ({ theme: s.theme === 'light' ? 'dark' : 'light' }));
+  goHome = () => this.setState({ view: 'landing' }, () => this._top());
+  navWork = () => this.setState({ view: 'work', cProgress: 0 }, () => this._top());
+  openProject = (i) => this.setState({ view: 'project', proj: i }, () => this._top());
+  openCard0 = () => this.openProject(0);
+  openCard1 = () => this.openProject(1);
+  openCard2 = () => this.openProject(2);
+  openCurrent = () => this.openProject(this.state.cIndex);
+  nextProject = () => this.openProject((this.state.proj + 1) % this.PROJECTS.length);
+
+  _scrollTo = (id) => {
+    const go = () => { const el = document.getElementById(id); if (el) window.scrollTo({ top: el.offsetTop - 64, behavior: 'smooth' }); };
+    if (this.state.view !== 'landing') this.setState({ view: 'landing' }, () => setTimeout(go, 80));
+    else go();
+  };
+  navProjects = () => this._scrollTo('work-section');
+  navAbout = () => this._scrollTo('about-section');
+  navContact = () => this._scrollTo('contact-section');
+
+  cPrev = () => { const n = this.PROJECTS.length; this.setState(s => ({ cIndex: (s.cIndex - 1 + n) % n, cProgress: 0 })); };
+  cNext = () => { const n = this.PROJECTS.length; this.setState(s => ({ cIndex: (s.cIndex + 1) % n, cProgress: 0 })); };
+  cPlayToggle = () => this.setState(s => ({ cPlaying: !s.cPlaying }));
+  jumpTo = (i) => this.setState({ cIndex: i, cProgress: 0 });
+
+  _flags(p) {
+    return { ...p,
+      isVideo: p.media === 'video', isImage: p.media === 'image',
+      isGallery: p.media === 'gallery', isNone: p.media === 'none',
+      isWave: p.icon === 'wave', isBubble: p.icon === 'bubble',
+      isLayers: p.icon === 'layers', isCode: p.icon === 'code',
+      gallery: p.gallery || [] };
+  }
+
+  renderVals() {
+    const s = this.state;
+    const isDark = s.theme === 'dark';
+    const ACCENTS = {
+      Cobalt:    { l:['#2a6fdb','rgba(42,111,219,0.09)','#ffffff'], d:['#5b93f2','rgba(91,147,242,0.15)','#0b0b0c'] },
+      Forest:    { l:['#1f7a52','rgba(31,122,82,0.10)','#ffffff'],  d:['#4fb286','rgba(79,178,134,0.16)','#06120c'] },
+      Terracotta:{ l:['#c2603a','rgba(194,96,58,0.10)','#ffffff'],  d:['#e08a63','rgba(224,138,99,0.16)','#190e07'] },
+      Violet:    { l:['#6a4fd0','rgba(106,79,208,0.10)','#ffffff'], d:['#9a86ee','rgba(154,134,238,0.16)','#0c0917'] },
+      Graphite:  { l:['#2a2a2e','rgba(40,40,46,0.08)','#ffffff'],   d:['#e7e7eb','rgba(231,231,235,0.10)','#0b0b0c'] }
+    };
+    const ac = (ACCENTS[this.props.accent] || ACCENTS.Cobalt)[isDark ? 'd' : 'l'];
+    const tokens = { ...(isDark ? this.DARK : this.LIGHT), accent: ac[0], 'accent-weak': ac[1], 'accent-text': ac[2] };
+    const crisp = this.props.corners === 'Crisp';
+    const compact = this.props.density === 'Compact';
+    const extra = {
+      'rad-card': crisp ? '5px' : '18px',
+      'rad-btn':  crisp ? '5px' : '12px',
+      'rad-pill': crisp ? '7px' : '980px',
+      'sec':    compact ? 'clamp(34px,4.5vw,56px)' : 'clamp(56px,9vw,104px)',
+      'sec-lg': compact ? 'clamp(44px,6vw,72px)'   : 'clamp(72px,12vw,128px)'
+    };
+    const vars = Object.entries({ ...tokens, ...extra }).map(([k, v]) => `--${k}:${v}`).join(';');
+    const rootStyle = `${vars};min-height:100vh;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'SF Pro Text','Inter',system-ui,sans-serif;font-weight:400;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;transition:background .45s ease,color .45s ease;`;
+
+    const cur = this._flags(this.PROJECTS[s.cIndex]);
+    const proj = this._flags(this.PROJECTS[s.proj]);
+    const nextIdx = (s.proj + 1) % this.PROJECTS.length;
+
+    const dots = this.PROJECTS.map((p, i) => {
+      const active = i === s.cIndex;
+      return {
+        onClick: () => this.jumpTo(i),
+        style: `width:${active ? 26 : 8}px;height:8px;border-radius:980px;border:none;cursor:pointer;padding:0;transition:width .3s ease, background .3s ease;background:${active ? 'var(--accent)' : 'var(--border-strong)'};`
+      };
+    });
+
+    return {
+      rootStyle, isDark, isLight: !isDark,
+      isLanding: s.view === 'landing', isWork: s.view === 'work', isProject: s.view === 'project',
+      toggleTheme: this.toggleTheme, goHome: this.goHome, navWork: this.navWork,
+      navProjects: this.navProjects, navAbout: this.navAbout, navContact: this.navContact,
+      openCard0: this.openCard0, openCard1: this.openCard1, openCard2: this.openCard2,
+      openCurrent: this.openCurrent, nextProject: this.nextProject,
+      cPrev: this.cPrev, cNext: this.cNext, cPlayToggle: this.cPlayToggle,
+      stack: this.STACK,
+      cur, proj, dots,
+      cPlaying: s.cPlaying, cPaused: !s.cPlaying,
+      progressW: s.cProgress + '%',
+      counterLabel: (s.cIndex + 1) + ' / ' + this.PROJECTS.length,
+      nextTitle: this.PROJECTS[nextIdx].title
+    };
+  }
+}
+</script>
+</body>
+</html>
