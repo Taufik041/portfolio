@@ -20,6 +20,19 @@ export function ProjectCard({ project }: { project: Project }) {
           <ProjectIcon icon={project.icon} size={22} />
         </div>
 
+        {project.demo && !hasMedia && (
+          <span
+            className="flex items-center gap-[7px] text-[12.5px]"
+            style={{ color: 'var(--text-3)' }}
+          >
+            <span
+              className="inline-flex h-[7px] w-[7px] rounded-full"
+              style={{ background: 'var(--accent)' }}
+            />
+            live
+          </span>
+        )}
+
         {hasMedia && (
           <span
             className="flex items-center gap-[6px] text-[12.5px]"

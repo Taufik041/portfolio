@@ -3,6 +3,10 @@ import { projects, person, experiences, about, stack } from '@/content';
 import { ProjectCard } from '@/components/project-card';
 import { ArrowRightIcon, ArrowUpRightIcon } from '@/components/icons';
 
+const COUNT_WORDS: Record<number, string> = {
+  1: 'One', 2: 'Two', 3: 'Three', 4: 'Four', 5: 'Five', 6: 'Six',
+};
+
 export default function LandingPage() {
   return (
     <>
@@ -36,6 +40,20 @@ export default function LandingPage() {
             }}
           >
             {person.subline}
+          </p>
+
+          <p className="mt-6 inline-flex items-center gap-[10px] text-[14px]" style={{ color: 'var(--text-2)' }}>
+            <span
+              className="relative inline-flex h-[8px] w-[8px] flex-none rounded-full"
+              style={{ background: 'var(--accent)' }}
+              aria-hidden
+            />
+            <span>
+              {person.availability}{' '}
+              <a href={`mailto:${person.email}`} className="font-medium no-underline hover:underline" style={{ color: 'var(--text)' }}>
+                {person.email}
+              </a>
+            </span>
           </p>
 
           <div className="mt-10 flex flex-wrap items-center gap-[14px]">
@@ -79,7 +97,7 @@ export default function LandingPage() {
                 color: 'var(--text)',
               }}
             >
-              Three systems I&apos;m proud of.
+              {COUNT_WORDS[projects.length] ?? projects.length} systems I&apos;m proud of.
             </h2>
           </div>
           <Link
@@ -210,19 +228,31 @@ export default function LandingPage() {
           >
             Stack
           </p>
-          <div className="flex flex-wrap gap-[10px]" style={{ gridColumn: 'span 2', minWidth: 0 }}>
-            {stack.map((s) => (
-              <span
-                key={s}
-                className="inline-flex rounded-pill border px-[13px] py-[7px] text-[13.5px]"
-                style={{
-                  borderColor: 'var(--border)',
-                  background: 'var(--surface)',
-                  color: 'var(--text)',
-                }}
-              >
-                {s}
-              </span>
+          <div className="flex flex-col gap-7" style={{ gridColumn: 'span 2', minWidth: 0 }}>
+            {stack.map((group) => (
+              <div key={group.label}>
+                <p
+                  className="mb-3 text-[13px] font-medium"
+                  style={{ color: 'var(--text-3)' }}
+                >
+                  {group.label}
+                </p>
+                <div className="flex flex-wrap gap-[10px]">
+                  {group.items.map((s) => (
+                    <span
+                      key={s}
+                      className="inline-flex rounded-pill border px-[13px] py-[7px] text-[13.5px]"
+                      style={{
+                        borderColor: 'var(--border)',
+                        background: 'var(--surface)',
+                        color: 'var(--text)',
+                      }}
+                    >
+                      {s}
+                    </span>
+                  ))}
+                </div>
+              </div>
             ))}
           </div>
         </div>
@@ -246,15 +276,25 @@ export default function LandingPage() {
           >
             Building something that needs to stay up? Let&apos;s talk.
           </h2>
+          <p className="mx-auto mt-5 text-[15.5px]" style={{ color: 'var(--text-2)', maxWidth: 520 }}>
+            Fastest way to reach me is email - I reply within a day.
+          </p>
           <div className="mt-9 flex flex-wrap justify-center gap-[14px]">
+            <a
+              href={`mailto:${person.email}`}
+              className="inline-flex items-center gap-2 rounded-btn border-0 px-[22px] py-[13px] text-[15px] font-medium no-underline transition-[filter] hover:brightness-110"
+              style={{ background: 'var(--accent)', color: 'var(--accent-text)' }}
+            >
+              {person.email} <ArrowUpRightIcon size={15} />
+            </a>
             <a
               href={person.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 rounded-btn border-0 px-[22px] py-[13px] text-[15px] font-medium no-underline transition-[filter] hover:brightness-110"
-              style={{ background: 'var(--accent)', color: 'var(--accent-text)' }}
+              className="inline-flex items-center gap-2 rounded-btn border px-[20px] py-[13px] text-[15px] no-underline transition-colors hover:bg-[var(--surface)] hover:border-[var(--border-strong)]"
+              style={{ borderColor: 'var(--border)', color: 'var(--text)' }}
             >
-              Get in touch <ArrowUpRightIcon size={15} />
+              LinkedIn
             </a>
             <a
               href={person.github}

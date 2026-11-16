@@ -27,10 +27,20 @@ Open **`src/content.ts`** - every piece of copy and every URL lives there.
 
 ---
 
-## Drop in your résumé
+## Update the résumé
 
-1. Copy your PDF into `/public/resume.pdf`
-2. The nav Résumé link and footer link already point to `/resume.pdf`
+The site links to `/resume.pdf`, which is `public/resume.pdf` in this repo.
+
+**Without touching code:** on github.com open `public/`, click **Add file → Upload files**,
+drop the new PDF named exactly `resume.pdf`, commit to `main`. Vercel redeploys in ~1 min
+and the link never changes.
+
+**From a terminal:**
+
+```bash
+cp ~/Downloads/Taufik_Khan.pdf public/resume.pdf
+git commit -am "Update résumé" && git push
+```
 
 ---
 
