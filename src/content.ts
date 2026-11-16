@@ -30,7 +30,7 @@ export interface Project {
 export const projects: Project[] = [
   {
     slug: 'otto',
-    title: 'Otto - autonomous cloud coding agent',
+    title: 'Otto - cloud-native AI coding agent',
     icon: 'code',
     description:
       'Give it a GitHub repo and a task in chat; it works in an isolated Kubernetes sandbox and comes back with a pull request. Stateless async LLM worker, one sandbox Job per session over per-session RabbitMQ queues, event-sourced session log in Postgres streamed live over LISTEN/NOTIFY + WebSockets, GitHub App auth, 600+ tests.',
