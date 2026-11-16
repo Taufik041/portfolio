@@ -130,18 +130,22 @@ export interface StackGroup {
 export const stack: StackGroup[] = [
   {
     label: 'Languages & Backend',
-    items: ['Python', 'Go', 'SQL', 'Bash', 'FastAPI', 'REST APIs', 'WebSockets', 'Microservices'],
+    items: ['Python', 'Go', 'SQL', 'Bash / Shell scripting', 'FastAPI', 'REST APIs', 'WebSockets', 'Microservices', 'Event-driven architecture', 'Distributed systems'],
   },
   {
     label: 'GenAI & Agents',
-    items: ['Agentic workflows', 'RAG', 'MCP', 'LangChain', 'OpenAI Whisper', 'vLLM'],
+    items: ['LLM applications', 'Agentic AI', 'RAG', 'Prompt engineering', 'Tool / function calling', 'MCP', 'LangChain', 'Vector databases (Qdrant)', 'Embeddings', 'OpenAI Whisper', 'vLLM'],
   },
   {
     label: 'Cloud & DevOps',
-    items: ['AWS (EKS, EC2, S3)', 'Docker', 'Kubernetes', 'Helm', 'Argo CD', 'Terraform', 'GitHub Actions', 'KEDA'],
+    items: ['AWS (EKS, EC2, S3, IAM)', 'Linux', 'Docker', 'Kubernetes', 'Helm', 'CI/CD (GitHub Actions)', 'GitOps (Argo CD)', 'Infrastructure as Code (Terraform)', 'KEDA autoscaling', 'Secrets management (External Secrets Operator)', 'Nginx'],
+  },
+  {
+    label: 'Monitoring & Observability',
+    items: ['Prometheus', 'Grafana', 'Structured logging', 'Alerting', 'Health checks', 'Production troubleshooting', 'Root cause analysis'],
   },
   {
     label: 'Data & Integrations',
-    items: ['PostgreSQL', 'Redis', 'RabbitMQ', 'WhatsApp Cloud API (Flows, Webhooks)', 'GitHub Apps', 'Git'],
+    items: ['PostgreSQL', 'Redis', 'RabbitMQ', 'Message queues', 'WhatsApp Cloud API (Flows, Webhooks)', 'GitHub Apps', 'Git'],
   },
 ];
