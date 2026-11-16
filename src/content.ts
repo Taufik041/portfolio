@@ -104,7 +104,7 @@ export const experiences: Experience[] = [
     domain:   'Backend, DevOps, GenAI',
     bullets: [
       'Own the Revenue Department services on Odisha\u2019s WhatsApp government-services platform, a team-built system handling 320,000+ citizen applications across 30+ departments on FastAPI and RabbitMQ.',
-      'Grew Revenue into the busiest department on the platform: 75,000+ citizens served and nearly half of all traffic, including a launch-day peak of 10,800+ applications with 99% completing without a system error.',
+      'Grew Revenue into the busiest department on the platform: 75,000+ citizens served and nearly 50% of all platform traffic, absorbing a launch-day peak of 10,800+ applications with a 99% success rate.',
       'Shipped 15+ Revenue services as WhatsApp Flows - residence, income and caste certificates, mutation, legal heir, land conversion and partition, Bhulekh RoR lookup, grievances. A citizen finishes an application in a median of 1.4 minutes.',
       'Launched CHSE Odisha services on WhatsApp - marksheet and certificate verification, migration and provisional certificates, authentication of originals - serving 2,000+ students in the first three months.',
       'Built a RAG-based internal agent that turns PDF, image and text specs into production WhatsApp Flow JSON (bilingual English/Odia), cutting manual flow authoring by 90%.',
